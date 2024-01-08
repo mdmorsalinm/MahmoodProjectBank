@@ -1,14 +1,14 @@
 public class Account {
     private String accountName;
     private double balance;
-    private boolean savings;
+    private boolean isChecking;
     private Customer customer;
 
     public Account(String accountName, double balance, Customer customer, boolean type) {
         this.accountName = accountName;
         this.balance = balance;
         this.customer = customer;
-        savings = type;
+        isChecking = type;
     }
 
     public double getBalance() {
