@@ -19,6 +19,10 @@ public class Account {
         return accountName;
     }
 
+    public boolean isChecking() {
+        return isChecking;
+    }
+
     public void addMoney(double amount) {
         balance += amount;
     }
@@ -26,6 +30,7 @@ public class Account {
     public void removeMoney(double amount) {
         balance -= amount;
     }
+
 
 
 
