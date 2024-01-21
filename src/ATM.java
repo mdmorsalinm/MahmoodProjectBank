@@ -16,6 +16,7 @@ public class ATM {
     }
 
     private void logic() {
+        ConsoleUtility.clearScreen();
         System.out.println(ConsoleUtility.BLUE + "Welcome to the ATM" + ConsoleUtility.RESET);
         System.out.println("To get started you need to create an account!");
         System.out.print("Enter your username: ");
@@ -23,22 +24,33 @@ public class ATM {
         System.out.print("Enter your 4 digit pin number: ");
         int pin = scan.nextInt();
         scan.nextLine();
+        ConsoleUtility.clearScreen();
         while (pin < 1000 || pin > 9999) {
+            System.out.println("Username: " + name);
             System.out.println(ConsoleUtility.RED + "That is not 4 digit" + ConsoleUtility.RESET);
             System.out.print("Enter your 4 digit pin number again: ");
             pin = scan.nextInt();
+            ConsoleUtility.clearScreen();
         }
         customer = new Customer(name, pin);
         saving = new Account("saving", 100, customer, false);
         checking = new Account("checking", 100, customer, true);
         System.out.println(ConsoleUtility.GREEN + "Account Successfully Created!" + ConsoleUtility.RESET);
-
+        try {
+            Thread.sleep(2000);  // 2000 milliseconds, or 2 seconds
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        ConsoleUtility.clearScreen();
         System.out.println("Username: " + name);
         System.out.print("Enter your 4 digit pin to login: ");
         int newPin = scan.nextInt();
+        ConsoleUtility.clearScreen();
         while (newPin != customer.getPin()) {
+            System.out.println("Username: " + name);
             System.out.print(ConsoleUtility.RED + "Incorrect pin try again: " + ConsoleUtility.RESET);
             newPin = scan.nextInt();
+            ConsoleUtility.clearScreen();
         }
         scan.nextLine();
         int choice = 10000;
@@ -48,26 +60,31 @@ public class ATM {
             if (count > 0) {
                 System.out.print("Do you want to do anything else (yes/no): ");
                 user = scan.nextLine();
+                ConsoleUtility.clearScreen();
             }
             if (!user.equals("no")) {
                 if (count > 0) {
                     System.out.print("Enter your 4 digit pin for security purposes: ");
                     newPin = scan.nextInt();
+                    ConsoleUtility.clearScreen();
                     while (newPin != customer.getPin()) {
                         System.out.print(ConsoleUtility.RED + "Incorrect pin try again: " + ConsoleUtility.RESET);
                         newPin = scan.nextInt();
                         scan.nextLine();
+                        ConsoleUtility.clearScreen();
                     }
                 }
                 printMenu();
                 System.out.print("Enter your choice (1 - 7): ");
                 choice = scan.nextInt();
                 scan.nextLine();
+                ConsoleUtility.clearScreen();
                 if (choice == 1) {
                     Account currentAcc = accountType();
                     System.out.print("Enter your withdrawal amount(theres only $5 and $20 bills): ");
                     int amount = scan.nextInt();
                     scan.nextLine();
+
                     while (amount % 5 != 0 || amount > currentAcc.getBalance()) {
                         if (amount % 5 != 0) {
                             System.out.println(ConsoleUtility.RED + "We only have $5 and $20 bills sorry" + ConsoleUtility.RESET);
@@ -78,6 +95,7 @@ public class ATM {
                         System.out.print("Enter your withdrawal amount: ");
                         amount = scan.nextInt();
                         scan.nextLine();
+                        ConsoleUtility.clearScreen();
                     }
                     int change;
                     int total = 0;
@@ -90,6 +108,7 @@ public class ATM {
                         System.out.print("Pick How Many $5 (input 5) and $20 (input 20): ");
                         change = scan.nextInt();
                         scan.nextLine();
+                        ConsoleUtility.clearScreen();
                         if ((change == 5) && ((total + change) <= amount)) {
                             total += 5;
                             num5++;
@@ -97,9 +116,16 @@ public class ATM {
                             total += 20;
                             num20++;
                         }
+                        ConsoleUtility.clearScreen();
                     }
                     currentAcc.removeMoney(amount);
                     System.out.println(ConsoleUtility.YELLOW + transaction.withdrawHistory(amount, currentAcc.isChecking(), currentAcc.getBalance()) + ConsoleUtility.RESET);
+                    try {
+                        Thread.sleep(3000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
 
                 } else if (choice == 2) {
                     Account currentAcc = accountType();
@@ -108,18 +134,28 @@ public class ATM {
                     scan.nextLine();
                     currentAcc.addMoney(amount);
                     System.out.println(ConsoleUtility.YELLOW + transaction.depositHistory(amount, currentAcc.isChecking(), currentAcc.getBalance()) + ConsoleUtility.RESET);
+                    try {
+                        Thread.sleep(3000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
                 } else if (choice == 3) {
                     System.out.print("From account: (s)avings or (c)hecking: ");
                     String from = scan.nextLine();
+                    ConsoleUtility.clearScreen();
                     while (!from.equals("s") && !from.equals("c")) {
                         System.out.print("Pick an account: (s)avings, (c)hecking again: ");
                         from = scan.nextLine();
+                        ConsoleUtility.clearScreen();
                     }
                     System.out.print("To account: (s)avings or (c)hecking: ");
                     String to = scan.nextLine();
+                    ConsoleUtility.clearScreen();
                     while (!to.equals("s") && !to.equals("c")) {
                         System.out.print("Pick an account: (s)avings, (c)hecking again: ");
                         to = scan.nextLine();
+                        ConsoleUtility.clearScreen();
                     }
                     System.out.print("Enter transfer amount: ");
                     double amount = scan.nextDouble();
@@ -143,29 +179,54 @@ public class ATM {
                     } else {
                         System.out.println(ConsoleUtility.RED + "Invalid Transfer! You are transferring money to same account" + ConsoleUtility.RESET);
                     }
+                    try {
+                        Thread.sleep(3000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
                 } else if (choice == 4) {
                     System.out.println("Savings Account Balance : $" + saving.getBalance());
                     System.out.println("Checking Account Balance: $" + checking.getBalance());
                     transaction.addOthers(". Got Account Balances");
+                    try {
+                        Thread.sleep(4000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
                 } else if (choice == 5) {
                     System.out.println(ConsoleUtility.YELLOW + transaction.getHistory() + ConsoleUtility.RESET);
                     transaction.addOthers(". Got Transaction History");
+                    try {
+                        Thread.sleep(6000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
                 } else if (choice == 6) {
                     System.out.print("Enter your new 4 digit pin: ");
                     int changePin = scan.nextInt();
                     scan.nextLine();
+                    ConsoleUtility.clearScreen();
                     while (changePin < 1000 || changePin > 9999) {
                         System.out.println(ConsoleUtility.RED + "That is not 4 digit" + ConsoleUtility.RESET);
                         System.out.print("Enter your 4 digit pin number again: ");
                         changePin = scan.nextInt();
                         scan.nextLine();
+                        ConsoleUtility.clearScreen();
                     }
                     customer.setPin(changePin);
                     System.out.println(ConsoleUtility.GREEN + "Pin Changed Successfully" + ConsoleUtility.RESET);
                     transaction.addOthers(". Pin Changed Successfully");
+                    try {
+                        Thread.sleep(2000);  // 2000 milliseconds, or 2 seconds
+                    } catch (Exception e) {
+                        System.out.println("error");
+                    }
+                    ConsoleUtility.clearScreen();
                 }
             }
-
             count++;
         }
         System.out.println(ConsoleUtility.GREEN + "Goodbye" + ConsoleUtility.RESET);

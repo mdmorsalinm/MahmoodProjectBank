@@ -30,9 +30,4 @@ public class Account {
     public void removeMoney(double amount) {
         balance -= amount;
     }
-
-
-
-
-
 }
