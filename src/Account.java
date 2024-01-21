@@ -8,7 +8,7 @@ public class Account {
         this.accountName = accountName;
         this.balance = balance;
         this.customer = customer;
-        isChecking = type;
+        isChecking = type; // checks if the account is checking or savings
     }
 
     public double getBalance() {

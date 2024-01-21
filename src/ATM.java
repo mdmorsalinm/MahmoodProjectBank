@@ -25,6 +25,7 @@ public class ATM {
         int pin = scan.nextInt();
         scan.nextLine();
         ConsoleUtility.clearScreen();
+        // checks if the pin is 4 digits
         while (pin < 1000 || pin > 9999) {
             System.out.println("Username: " + name);
             System.out.println(ConsoleUtility.RED + "That is not 4 digit" + ConsoleUtility.RESET);
@@ -42,6 +43,7 @@ public class ATM {
             System.out.println("error");
         }
         ConsoleUtility.clearScreen();
+        // asks the user for pin again to login for security purposes
         System.out.println("Username: " + name);
         System.out.print("Enter your 4 digit pin to login: ");
         int newPin = scan.nextInt();
@@ -53,17 +55,17 @@ public class ATM {
             ConsoleUtility.clearScreen();
         }
         scan.nextLine();
-        int choice = 10000;
-        int count = 0;
+        int choice = 10000; // user choice, default 1000
+        int count = 0; // how many times the loop runs, for functionality purposes
         String user = "";
         while (choice != 7 && !user.equals("no")) {
-            if (count > 0) {
+            if (count > 0) { // after the user first goes through main menu this code works
                 System.out.print("Do you want to do anything else (yes/no): ");
                 user = scan.nextLine();
                 ConsoleUtility.clearScreen();
             }
             if (!user.equals("no")) {
-                if (count > 0) {
+                if (count > 0) { // after the user first goes through main menu, this asks for pin
                     System.out.print("Enter your 4 digit pin for security purposes: ");
                     newPin = scan.nextInt();
                     ConsoleUtility.clearScreen();
@@ -80,11 +82,12 @@ public class ATM {
                 scan.nextLine();
                 ConsoleUtility.clearScreen();
                 if (choice == 1) {
-                    Account currentAcc = accountType();
+                    //withdraws money
+                    Account currentAcc = accountType(); // checks saving or checking
                     System.out.print("Enter your withdrawal amount(theres only $5 and $20 bills): ");
                     int amount = scan.nextInt();
                     scan.nextLine();
-
+                    // Keeps running until user inputs a factor of 5 and less than the balance available
                     while (amount % 5 != 0 || amount > currentAcc.getBalance()) {
                         if (amount % 5 != 0) {
                             System.out.println(ConsoleUtility.RED + "We only have $5 and $20 bills sorry" + ConsoleUtility.RESET);
@@ -97,14 +100,15 @@ public class ATM {
                         scan.nextLine();
                         ConsoleUtility.clearScreen();
                     }
-                    int change;
-                    int total = 0;
-                    int num5 = 0;
-                    int num20 = 0;
+                    int change; // bills
+                    int total = 0; // total cash bills
+                    int num5 = 0; // number of $5 bills
+                    int num20 = 0; // number of $20 bills
+                    //this loop asks the user how many $5 bills and $20 bills they want
                     while (total != amount) {
                         System.out.println("$5 bills: " + num5);
                         System.out.println("$20 bills: " + num20);
-                        System.out.println("Total: " + total + " Target: " + amount);
+                        System.out.println("Total: $" + total + " Target: $" + amount);
                         System.out.print("Pick How Many $5 (input 5) and $20 (input 20): ");
                         change = scan.nextInt();
                         scan.nextLine();
@@ -128,7 +132,8 @@ public class ATM {
                     ConsoleUtility.clearScreen();
 
                 } else if (choice == 2) {
-                    Account currentAcc = accountType();
+                    // deposits money
+                    Account currentAcc = accountType(); // savings or checking
                     System.out.print("Enter your deposit amount: ");
                     double amount = scan.nextDouble();
                     scan.nextLine();
@@ -141,6 +146,7 @@ public class ATM {
                     }
                     ConsoleUtility.clearScreen();
                 } else if (choice == 3) {
+                    //transfers money
                     System.out.print("From account: (s)avings or (c)hecking: ");
                     String from = scan.nextLine();
                     ConsoleUtility.clearScreen();
@@ -180,12 +186,13 @@ public class ATM {
                         System.out.println(ConsoleUtility.RED + "Invalid Transfer! You are transferring money to same account" + ConsoleUtility.RESET);
                     }
                     try {
-                        Thread.sleep(3000);  // 2000 milliseconds, or 2 seconds
+                        Thread.sleep(4000);  // 2000 milliseconds, or 2 seconds
                     } catch (Exception e) {
                         System.out.println("error");
                     }
                     ConsoleUtility.clearScreen();
                 } else if (choice == 4) {
+                    // displays balance
                     System.out.println("Savings Account Balance : $" + saving.getBalance());
                     System.out.println("Checking Account Balance: $" + checking.getBalance());
                     transaction.addOthers(". Got Account Balances");
@@ -196,19 +203,22 @@ public class ATM {
                     }
                     ConsoleUtility.clearScreen();
                 } else if (choice == 5) {
+                    // displays transfer history
                     System.out.println(ConsoleUtility.YELLOW + transaction.getHistory() + ConsoleUtility.RESET);
                     transaction.addOthers(". Got Transaction History");
                     try {
-                        Thread.sleep(6000);  // 2000 milliseconds, or 2 seconds
+                        Thread.sleep(8000);  // 2000 milliseconds, or 2 seconds
                     } catch (Exception e) {
                         System.out.println("error");
                     }
                     ConsoleUtility.clearScreen();
                 } else if (choice == 6) {
+                    // changes pin
                     System.out.print("Enter your new 4 digit pin: ");
                     int changePin = scan.nextInt();
                     scan.nextLine();
                     ConsoleUtility.clearScreen();
+                    // checks if the pin is 4 digits
                     while (changePin < 1000 || changePin > 9999) {
                         System.out.println(ConsoleUtility.RED + "That is not 4 digit" + ConsoleUtility.RESET);
                         System.out.print("Enter your 4 digit pin number again: ");

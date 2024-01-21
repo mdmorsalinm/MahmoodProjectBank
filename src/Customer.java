@@ -1,6 +1,6 @@
 public class Customer {
-    private String name;
-    private int pin;
+    private String name; // username
+    private int pin; // 4 digit pin
 
     public Customer(String name, int pin) {
         this.name = name;
@@ -17,6 +17,5 @@ public class Customer {
 
     public String getName() {
         return name;
-
     }
 }

@@ -4,8 +4,8 @@ public class TransactionHistory {
     private int idS;
 
     public TransactionHistory() {
-        idS = 0;
-        idA = 0;
+        idS = 0; //id for security transactions
+        idA = 0; //id for account transactions
         history = "";
     }
 
@@ -52,11 +52,13 @@ public class TransactionHistory {
         return str;
     }
 
+    // security transactions
     public void addOthers(String str) {
         history += "ID: S" + displayID("s") + str;
         idS++;
     }
 
+    // adds zeros in front of the id to make it 4-digit number
     private String displayID(String str) {
         String idStr = "";
         if (str.equals("s")) {
